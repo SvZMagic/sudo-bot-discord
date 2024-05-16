@@ -1,0 +1,110 @@
+import discord
+import os
+import requests
+import config
+import asyncio
+import time
+import random
+from webserver import keep_alive
+from time import strftime
+from time import localtime
+from discord import utils
+from discord import Member
+from discord.ext import commands
+from discord.ext.commands import Bot
+from asyncio import sleep
+
+my_secret = os.environ['DISCORD_TOKEN']
+
+langu = "ru"
+
+print("CMW Corporation")
+
+client = discord.Client()
+
+hello_words = ["привет", "здарова", "hello", "hi", "здравствуйте"]
+imgscats = ['https://cdn.discordapp.com/attachments/942470096067104788/942470859828903976/unknown.png',
+            'https://cdn.discordapp.com/attachments/942470096067104788/942470484296102008/unknown.png',
+            "https://cdn.discordapp.com/attachments/942470096067104788/942470307900448828/unknown.png",
+            "https://cdn.discordapp.com/attachments/942470096067104788/942470383070773319/unknown.png",
+            "https://cdn.discordapp.com/attachments/942470096067104788/942470259263307816/unknown.png",
+            "https://cdn.discordapp.com/attachments/942470096067104788/942470226207993856/unknown.png",
+            "https://cdn.discordapp.com/attachments/942470096067104788/942473757732241418/unknown.png"]
+imgsdogs = ["https://cdn.discordapp.com/attachments/942512809470742599/942512829309788170/D0A8D0BFD0B8D18620OG_0.png",
+            "https://cdn.discordapp.com/attachments/942512809470742599/942512890055913512/7ecbe8408b647fa2d113b5d4f369ac39.png",
+            "https://cdn.discordapp.com/attachments/942512809470742599/942512991776178227/0e26b1b65946ee36fac9605ae67e4ac8.png",
+            'https://cdn.discordapp.com/attachments/942512809470742599/942513065457500270/910x.png',
+            'https://cdn.discordapp.com/attachments/942512809470742599/942513111976525904/98776281_gettyimages-521697453.png',
+            'https://cdn.discordapp.com/attachments/942512809470742599/942513209666060388/nBkSUhL2hFQhkMu1L76BvMKnxdDs95C-yyqYy7jLs2KQeXqLBmmcmzZh59JUtRPBsdaJqSfJd54qEr7t1mNwKSGK7WYMIs4YZgZpRYNvdOiXors6Q.png',
+            'https://cdn.discordapp.com/attachments/942512809470742599/942513262531055667/m_9.png']
+
+
+@client.event
+async def on_ready():
+    # input("Нажмите Enter для входа")
+    print("$sudo login $sudo-bot#8207")
+    print("DONE!")
+
+
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    msg = message.content.lower()
+    msg_list = msg.split()
+
+    #
+    if len(list(set(msg_list + hello_words))) < len(msg_list) + len(hello_words):
+        if langu == "ru":
+            await message.channel.send('Привет!')
+        else:
+            if langu == "en":
+                await message.channel.send("Hello!")
+
+    if message.content.startswith('$sudo hack'):
+        if langu == "ru":
+            await message.channel.send(f' {message.author.mention} Пользователь был успешно взломан.')
+        else:
+            if langu == "en":
+                await message.channel.send(f' {message.author.mention} The user was successfully hacked.')
+
+    if message.content.startswith('$sudo lang=ru'):
+         #langu = "ru"
+         await message.channel.send('Язык был изменен.')
+
+    if message.content.startswith('$sudo lang=en'):
+         #langu = "en"
+         await message.channel.send('The language has been changed.')
+
+    if message.content.startswith('$sudo invite'):
+        await message.channel.send(
+            'https://discord.com/oauth2/authorize?client_id=942005986921685073&permissions=274879028294&scope=bot')
+    if message.content.startswith('$sudo help'):
+        if langu == "ru":
+            await message.channel.send('1. $sudo hack [Пользователь] - Взламывает пользователя (не по-настоящему)')
+            await message.channel.send('2. $sudo invite - генерирует ссылку на бота')
+            await message.channel.send('3. $sudo ver - показывает какая версия')
+            await message.channel.send('4. $sudo cat - показывает рандомную картинку с котом.')
+            await message.channel.send('5. $sudo dog - показывает рандомную картинку c собакой')
+        else:
+            if langu == "en":
+                await message.channel.send('1. $sudo hack [User] - Hacks the user (not for real)')
+                await message.channel.send('2. $sudo invite - generates a link to the bot')
+                await message.channel.send('3. $sudo ver - shows which version')
+                await message.channel.send('4. $sudo cat - shows random cat picture.')
+                await message.channel.send('5. $sudo dog - shows random dog picture')
+    if message.content.startswith('$sudo ver'):
+        await message.channel.send('BETA 0.6.3 (Pre-Release)')
+    if message.content.startswith("$sudo cat"):
+        await message.channel.send(random.choice(imgscats))
+    if message.content.startswith("$sudo dog"):
+        await message.channel.send(random.choice(imgsdogs))
+
+    print(msg_list)
+    print(hello_words)
+    print(list(set(msg_list + hello_words)))
+    print(len(list(set(msg_list + hello_words))))
+
+
+client.run('DISCORD_TOKEN')
