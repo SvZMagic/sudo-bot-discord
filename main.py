@@ -40,7 +40,7 @@ import requests
 
 
 PREFIX = '$sudob '
-print("Zetabyte. 2023, Savva Zenin")
+print("Zetabyte. 2023")
 
 imgscats = ['https://i.postimg.cc/bvCT7tzC/Screenshot-20220629-173035.jpg',
             'https://i.postimg.cc/28S56LmF/photo-2022-06-28-21-50-18.jpg', 
